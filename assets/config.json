@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ant-contrib",
+    "cron": "*/50 * * * *",
+    "svn2git": {
+      "repo": "https://svn.code.sf.net/p/ant-contrib/code/",
+      "username": "",
+      "password": "",
+      "options": "--trunk ant-contrib/trunk --branches ant-contrib/branches --tags ant-contrib/tags"
+    },
+    "git": {
+      "user": "git",
+      "hostname": "github.com",
+      "port": 22,
+      "repo": "crazy-max/test1"
+    },
+    "authors": [
+      {
+        "svn": "bodewig",
+        "git": "Stefan Bodewig <stefan.bodewig@freenet.de>"
+      },
+      {
+        "svn": "carnold",
+        "git": "carnold <carnold@apache.org>"
+      },
+      {
+        "svn": "darius42",
+        "git": "darius42 <darius42@dev.java.net>"
+      },
+      {
+        "svn": "deanhiller",
+        "git": "deanhiller <dean@alvazan.com>"
+      },
+      {
+        "svn": "jonkri",
+        "git": "jonkri <jonkri@dev.java.net>"
+      },
+      {
+        "svn": "mattinger",
+        "git": "mattinger <matthew_inger@cable.comcast.com>"
+      },
+      {
+        "svn": "peterkittreilly",
+        "git": "peterkittreilly <peterkittreilly@users.noreply.github.com>"
+      },
+      {
+        "svn": "slip_stream",
+        "git": "slip_stream <slip_stream@d8937260-d917-0410-8237-ad64d1a5881f>"
+      }
+    ]
+  },
+  {
+    "id": "websvn",
+    "cron": "0 1 * * *",
+    "svn2git": {
+      "repo": "http://websvn.tigris.org/svn/websvn/",
+      "username": "guest",
+      "password": "",
+      "options": "--trunk trunk --nobranches --notags --revision 1200"
+    },
+    "git": {
+      "user": "git",
+      "hostname": "github.com",
+      "port": 22,
+      "repo": "crazy-max/test2"
+    },
+    "authors": [
+      {
+        "svn": "(noauthor)",
+        "git": "Quinn Taylor <quinntaylor@users.noreply.github.com>"
+      },
+      {
+        "svn": "dirkthomas",
+        "git": "Dirk Thomas <dthomas@osrfoundation.org>"
+      },
+      {
+        "svn": "guest",
+        "git": "Quinn Taylor <quinntaylor@users.noreply.github.com>"
+      },
+      {
+        "svn": "junx",
+        "git": "Matt Sicker <mattsicker@apache.org>"
+      },
+      {
+        "svn": "quinntaylor",
+        "git": "Quinn Taylor <quinntaylor@users.noreply.github.com>"
+      },
+      {
+        "svn": "spetters",
+        "git": "spetters <spetters@users.noreply.github.com>"
+      },
+      {
+        "svn": "tarmes",
+        "git": "tarmes <tarmes@fr.imaje.com>"
+      }
+    ]
+  }
+]

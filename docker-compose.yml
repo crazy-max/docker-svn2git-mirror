@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  svn2git-mirror:
+    image: crazymax/svn2git-mirror
+    container_name: svn2git-mirror
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - ./data:/data:rw
+    restart: always

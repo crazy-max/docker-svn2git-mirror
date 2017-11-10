@@ -107,7 +107,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf5hIKe5v0TNdciiVBQRImyE3NtOuOw/q0arJOWT8O
 
 To mirror with a [Github](https://github.com) repository, you have to use a [deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys) on the target Github repository :
 
-![](https://raw.githubusercontent.com/crazy-max/svn2git-mirror/master/res/github-svn2git-mirror.png)
+![](https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/res/github-svn2git-mirror.png)
 
 > Do not forget to check **Allow write access**.
 

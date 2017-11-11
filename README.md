@@ -1,4 +1,8 @@
-[![Version](https://images.microbadger.com/badges/version/crazymax/svn2git-mirror.svg?style=flat-square)](https://microbadger.com/images/crazymax/svn2git-mirror) [![Docker Build Status](https://img.shields.io/docker/build/crazymax/svn2git-mirror.svg?style=flat-square)](https://hub.docker.com/r/crazymax/svn2git-mirror/) [![Docker Stars](https://img.shields.io/docker/stars/crazymax/svn2git-mirror.svg?style=flat-square)](https://hub.docker.com/r/crazymax/svn2git-mirror/) [![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/svn2git-mirror.svg?style=flat-square)](https://hub.docker.com/r/crazymax/svn2git-mirror/) [![Docker Build](https://img.shields.io/docker/automated/crazymax/svn2git-mirror.svg?style=flat-square)](https://hub.docker.com/r/crazymax/svn2git-mirror/) [![Donate Paypal](https://img.shields.io/badge/donate-paypal-7057ff.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHT63R3FN9WMN)
+[![Version](https://images.microbadger.com/badges/version/crazymax/svn2git-mirror.svg?style=flat-square)](https://microbadger.com/images/crazymax/svn2git-mirror) 
+[![Build Status](https://img.shields.io/travis/crazy-max/docker-svn2git-mirror/master.svg?style=flat-square)](https://travis-ci.org/crazy-max/docker-svn2git-mirror) 
+[![Docker Stars](https://img.shields.io/docker/stars/crazymax/svn2git-mirror.svg?style=flat-square)](https://hub.docker.com/r/crazymax/svn2git-mirror/) 
+[![Docker Pulls](https://img.shields.io/docker/pulls/crazymax/svn2git-mirror.svg?style=flat-square)](https://hub.docker.com/r/crazymax/svn2git-mirror/) 
+[![Donate Paypal](https://img.shields.io/badge/donate-paypal-7057ff.svg?style=flat-square)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHT63R3FN9WMN)
 
 ## About
 

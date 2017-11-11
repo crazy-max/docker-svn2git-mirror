@@ -1,9 +1,0 @@
-version: '3'
-
-services:
-  svngit:
-    build: ../
-    container_name: svngit
-    environment:
-      - TZ=Europe/Paris
-    restart: always

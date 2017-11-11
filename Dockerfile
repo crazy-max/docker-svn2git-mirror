@@ -1,6 +1,18 @@
 FROM alpine:3.6
 MAINTAINER Cr@zy <webmaster@crazyws.fr>
 
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+LABEL org.label-schema.build-date=$BUILD_DATE \
+  org.label-schema.name="svn2git-mirror" \
+  org.label-schema.description="Mirror SVN repositories to Git periodically" \
+  org.label-schema.url="https://github.com/crazy-max/docker-svn2git-mirror" \
+  org.label-schema.vcs-ref=$VCS_REF \
+  org.label-schema.vcs-url="https://github.com/crazy-max/docker-svn2git-mirror" \
+  org.label-schema.vendor="Cr@zy" \
+  org.label-schema.schema-version="1.0"
+
 RUN apk --update --no-cache add dcron git git-perl git-svn jq openssh openssh-client perl-git-svn ruby subversion tzdata \
   && rm -rf /var/cache/apk/* \
   && gem install svn2git --no-ri --no-rdoc

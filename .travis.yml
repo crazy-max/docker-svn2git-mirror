@@ -25,15 +25,18 @@ before_install:
   - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH, DOCKER_TAG=$DOCKER_TAG"
 
 install:
-  - docker build -t $DOCKER_USERNAME/$DOCKER_REPONAME .
-  - docker run -d --name $DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME
+  - |
+    docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
+    --build-arg VCS_REF=`git rev-parse --short HEAD` \
+    -t $DOCKER_USERNAME/$DOCKER_REPONAME .
 
 before_script:
+  - docker run -d --name $DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME
   - sleep 5
   - docker logs $DOCKER_REPONAME
 
 script:
-  - docker ps | grep -q $DOCKER_REPONAME
+  - docker ps | grep $DOCKER_REPONAME
   - docker exec -i -t $DOCKER_REPONAME git_pubkey ant-contrib
   - docker exec -i -t $DOCKER_REPONAME svn_authors ant-contrib
 

@@ -8,7 +8,7 @@ env:
     - DOCKER_VERSION=17.10.0~ce-0~ubuntu
     - COMPOSE_VERSION=1.17.1
     - DOCKER_REPONAME=svn2git-mirror
-    - secure: Jh4Tdb0qHceEAhoRV3GRk1PP2Nl69T7+0nNWWyTN3Ik+IGJV5LPeEsQKhaDbdXyS7uMRYT1cYTz+SXUeNQEl2ZjIJ/mJdwuASuzo3/WyWDQmnd/uNr8r4WT9i31fpEiL8ONlZvkrU4VI7yW54S+wgigDIfUTHTrfZpuu5s9p3FcrOzdEjX0JrRU5INiilps8BOfwhJlpTQ43vTTD3Hyn2NmDYe9ZnWugzvXyrES3u6J5eGNIl12DMYu60imcQV4FEa+Api1/JymFiGdhj7s4iHigTFy7cSHubSXU+AV5zsujaTq1EjkVni/m12aVlUQ69za7eVlpaJ39reA1UniT23bJVPufD4WHkVm9eU+BcM5t8Au5g7lCTm16pR2JZwNE7oUjEd4nUogiZ9PsENaXTo7dGmcHq2TYOqPJSNQAOVPuwQFtvTLGBOip6mUTGTZxKx6/TJWoFhZBihOINeinPSYRSW45FLR09wZJdTb2NDyZcGAJPjioAH3SgJu7WX42HSlnuMXxZoK9kqcmfxraenZcwb9XkP7ijIW3xg1MqljpwzHX14gWOyURA+m40dJEHB/SRCdSXZw5YsDX8GVEUbfMp8Ps8x78ifOeWf7KiEKbQx3Jlkg3bXyv7YL1p5tabjacxa1JL4EOzsxEjjp+1fgTc87lleFDf9bx99kcxm4=
+    - DOCKER_USERNAME=crazymax
     - secure: DGOayQVTsgX8mO2vT0SdMp53uNJJ/znyVx90LmJZDRTxdWOZCsQfUTrkuM+gsBO4RV23ThPloc2kIC+s+NW+Z4vfZVK6XE2ZLRrelhbrz8AzUiV8Psh3Mc6vHKixl3FAYwTnQPxt7LcjAu+6z0+Hg073GEHFK1Mb8jtcgn40Bw6x2jnRnwrthwVauCIX9F1oCVahxyMC7lfifj0jxmnzQk8JBTYdTkvov7ok4GY9dAtx8RUKeWo5EBwvfThZZMPmxLfbz1VxySqGN2qnBXfKMphWtKeBRCBX4lcHMks9iFEQcQxriswV+rJg/f7mN17s5zxqbbVs96JKi5aHZa21hmWr9B5yODpTyJY6LNRxUDpXRAaS7OnLC79pPctIc8X5tMxUBnfqJkl+avrGe7AP/btJdAQswkqoX7NL+UzyAijvQ9do4MPUffEi7bB9vjHAyfhORmXn6z4jVKBUM+CLRNTou4S5uh9aTCMn4DjxXQx6NYQzaCxC1UqTvWmezi+udOnZ8hmlRGhcYl7Iv76o/glM+aXLSxJuWryrprLU/IeAlAufcP5cBdFxHqtmrWMAMsraamuVXUFtszCfsSVJ+zikICLt/+6Xlx+ISTEC6LyJMKv0UnDKZkcVk2d8WJ1u4Pklo+XQ/eZOV7eWEeCPYW/nvcy7qdQTuv/WEzDcaho=
 
 before_install:
@@ -26,7 +26,7 @@ install:
   - docker run -d --name $DOCKER_REPONAME $DOCKER_REPONAME
 
 before_script:
-  - sleep 15
+  - sleep 5
   - docker logs $DOCKER_REPONAME
 
 script:

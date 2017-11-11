@@ -21,7 +21,8 @@ RUN mkdir -p ${DATA_PATH} \
   && for f in *.sh; do \
   scriptBasename=`echo $f | cut -d "." -f 1`; \
   mv $f ${SCRIPTS_PATH}/$scriptBasename; \
-  chmod a+x ${SCRIPTS_PATH}/*; done
+  chmod a+x ${SCRIPTS_PATH}/*; done \
+  && chmod a+x /entrypoint.sh
 
 VOLUME [ "${DATA_PATH}" ]
 

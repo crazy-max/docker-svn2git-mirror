@@ -5,12 +5,15 @@ services:
 
 env:
   global:
+    - VERSION=1.0
+    - GITHUB_REPO=crazy-max/docker-svn2git-mirror
     - DOCKER_USERNAME=crazymax
     - DOCKER_REPONAME=svn2git-mirror
     - DOCKER_VERSION=17.10.0~ce-0~ubuntu
     - COMPOSE_VERSION=1.17.1
     - MICROBADGER_HOOK=https://hooks.microbadger.com/images/crazymax/svn2git-mirror/KkTg5nSGpEj8NmQBMmAVJ3QSzko=
     - secure: DGOayQVTsgX8mO2vT0SdMp53uNJJ/znyVx90LmJZDRTxdWOZCsQfUTrkuM+gsBO4RV23ThPloc2kIC+s+NW+Z4vfZVK6XE2ZLRrelhbrz8AzUiV8Psh3Mc6vHKixl3FAYwTnQPxt7LcjAu+6z0+Hg073GEHFK1Mb8jtcgn40Bw6x2jnRnwrthwVauCIX9F1oCVahxyMC7lfifj0jxmnzQk8JBTYdTkvov7ok4GY9dAtx8RUKeWo5EBwvfThZZMPmxLfbz1VxySqGN2qnBXfKMphWtKeBRCBX4lcHMks9iFEQcQxriswV+rJg/f7mN17s5zxqbbVs96JKi5aHZa21hmWr9B5yODpTyJY6LNRxUDpXRAaS7OnLC79pPctIc8X5tMxUBnfqJkl+avrGe7AP/btJdAQswkqoX7NL+UzyAijvQ9do4MPUffEi7bB9vjHAyfhORmXn6z4jVKBUM+CLRNTou4S5uh9aTCMn4DjxXQx6NYQzaCxC1UqTvWmezi+udOnZ8hmlRGhcYl7Iv76o/glM+aXLSxJuWryrprLU/IeAlAufcP5cBdFxHqtmrWMAMsraamuVXUFtszCfsSVJ+zikICLt/+6Xlx+ISTEC6LyJMKv0UnDKZkcVk2d8WJ1u4Pklo+XQ/eZOV7eWEeCPYW/nvcy7qdQTuv/WEzDcaho= # DOCKER_PASSWORD
+    - secure: cdeXcQi3Zge+9DjqLeloDRZRi28aPJoWnGgtbIKwmyFdUQ8l8rTgBn3MmoN98gvNNKYgR3daqda1a20PwR2O7kLywSeiPKgzhITr6Qkh3phPNA3ygTdQ7QSIudeyy9N4UuqLn+dRfQJIkffrzWUaNOeKIKdTvj7kQOrLh1D2B5V7/yYBGo5oXZZUj7Wi/SQiE+hMN16q0CCEdenAryUF8Zoua/3X4/pLGNLaWCtz4v5/eNcV9ewcLsBWB0LqAvU0Sb/k3D84y5+OXWt9xeo+77Wud3wdZopmh/O11xpdcG5v3EcCzUajqCJoRexirR1rZk9InGMq2e8vMGIRsBNXFVioZCjAxpw7Ryd6VvMg1M3TcaLveF3fXL38Y0vzNS1gI38TSrm8sm3LKNqv3AN5tWNohVlsMX95uI3VOfHR0NFb19yg6JZzfzVm5QYkx5uqWBNM3Y08HFxfHeN3nd+Epco4y8elPyCPhnfPphGiL/FV6z3H/yZLH4gREQBHoc1akhyKYG8g9J08Psadnmv276pJXo8IEOgZcNUsgPDiCbPG9LEw8/LaySVT3EGtFKYa93LjUk4cs5HhSs7tz2wQuBAOvPLgdXwknW5LnqxIENsRh+ErEDzksizD2oy//H2ZbAnNlmT8TRxBgrMflyi78if7wDN9bhxALBIaCbJgA0A=
 
 before_install:
   - sudo apt-get update
@@ -29,6 +32,7 @@ install:
   - |
     docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
     --build-arg VCS_REF=${TRAVIS_COMMIT::8} \
+    --build-arg VERSION=${VERSION} \
     -t $DOCKER_USERNAME/$DOCKER_REPONAME .
 
 before_script:
@@ -45,5 +49,14 @@ after_success:
   - test $TRAVIS_PULL_REQUEST = false
     && echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
     && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME:$DOCKER_TAG
+    && docker tag $DOCKER_USERNAME/$DOCKER_REPONAME $DOCKER_USERNAME/$DOCKER_REPONAME:$VERSION
     && docker push $DOCKER_USERNAME/$DOCKER_REPONAME
     && curl -X POST $MICROBADGER_HOOK
+    && git config --global user.email "builds@travis-ci.com"
+    && git config --global user.name "Travis CI"
+    && git tag $VERSION -a -m "Generated tag from TravisCI for $VERSION"
+    && git push --quiet https://$GITHUB_TOKEN@github.com/$GITHUB_REPO $VERSION > /dev/null 2>&1
+
+branches:
+  except:
+    - /^[0-9]/

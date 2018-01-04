@@ -9,8 +9,8 @@ env:
     - GITHUB_REPO=crazy-max/docker-svn2git-mirror
     - DOCKER_USERNAME=crazymax
     - DOCKER_REPONAME=svn2git-mirror
-    - DOCKER_VERSION=17.10.0~ce-0~ubuntu
-    - COMPOSE_VERSION=1.17.1
+    - DOCKER_VERSION=17.12.0~ce-0~ubuntu
+    - COMPOSE_VERSION=1.18.0
     - MICROBADGER_HOOK=https://hooks.microbadger.com/images/crazymax/svn2git-mirror/KkTg5nSGpEj8NmQBMmAVJ3QSzko=
     - secure: DGOayQVTsgX8mO2vT0SdMp53uNJJ/znyVx90LmJZDRTxdWOZCsQfUTrkuM+gsBO4RV23ThPloc2kIC+s+NW+Z4vfZVK6XE2ZLRrelhbrz8AzUiV8Psh3Mc6vHKixl3FAYwTnQPxt7LcjAu+6z0+Hg073GEHFK1Mb8jtcgn40Bw6x2jnRnwrthwVauCIX9F1oCVahxyMC7lfifj0jxmnzQk8JBTYdTkvov7ok4GY9dAtx8RUKeWo5EBwvfThZZMPmxLfbz1VxySqGN2qnBXfKMphWtKeBRCBX4lcHMks9iFEQcQxriswV+rJg/f7mN17s5zxqbbVs96JKi5aHZa21hmWr9B5yODpTyJY6LNRxUDpXRAaS7OnLC79pPctIc8X5tMxUBnfqJkl+avrGe7AP/btJdAQswkqoX7NL+UzyAijvQ9do4MPUffEi7bB9vjHAyfhORmXn6z4jVKBUM+CLRNTou4S5uh9aTCMn4DjxXQx6NYQzaCxC1UqTvWmezi+udOnZ8hmlRGhcYl7Iv76o/glM+aXLSxJuWryrprLU/IeAlAufcP5cBdFxHqtmrWMAMsraamuVXUFtszCfsSVJ+zikICLt/+6Xlx+ISTEC6LyJMKv0UnDKZkcVk2d8WJ1u4Pklo+XQ/eZOV7eWEeCPYW/nvcy7qdQTuv/WEzDcaho= # DOCKER_PASSWORD
     - secure: cdeXcQi3Zge+9DjqLeloDRZRi28aPJoWnGgtbIKwmyFdUQ8l8rTgBn3MmoN98gvNNKYgR3daqda1a20PwR2O7kLywSeiPKgzhITr6Qkh3phPNA3ygTdQ7QSIudeyy9N4UuqLn+dRfQJIkffrzWUaNOeKIKdTvj7kQOrLh1D2B5V7/yYBGo5oXZZUj7Wi/SQiE+hMN16q0CCEdenAryUF8Zoua/3X4/pLGNLaWCtz4v5/eNcV9ewcLsBWB0LqAvU0Sb/k3D84y5+OXWt9xeo+77Wud3wdZopmh/O11xpdcG5v3EcCzUajqCJoRexirR1rZk9InGMq2e8vMGIRsBNXFVioZCjAxpw7Ryd6VvMg1M3TcaLveF3fXL38Y0vzNS1gI38TSrm8sm3LKNqv3AN5tWNohVlsMX95uI3VOfHR0NFb19yg6JZzfzVm5QYkx5uqWBNM3Y08HFxfHeN3nd+Epco4y8elPyCPhnfPphGiL/FV6z3H/yZLH4gREQBHoc1akhyKYG8g9J08Psadnmv276pJXo8IEOgZcNUsgPDiCbPG9LEw8/LaySVT3EGtFKYa93LjUk4cs5HhSs7tz2wQuBAOvPLgdXwknW5LnqxIENsRh+ErEDzksizD2oy//H2ZbAnNlmT8TRxBgrMflyi78if7wDN9bhxALBIaCbJgA0A= # GITHUB_TOKEN
@@ -56,3 +56,7 @@ after_success:
 branches:
   except:
     - /^[0-9]/
+
+notifications:
+  webhooks:
+    secure: WoD+LLWxUQDftFG3SsMgwIt1yih3vD4Su9Gaa7rYnhXJY1wWmoHA6/NWXt4iWsvQvJf7A7+Ul13C3M5l5fdby7AvcrGLcfLa222nu85wK7unJ+MolsTUro7kjvYw2RbVcpOTxvBuT3myVQ/edeTEG2A+UkJyenMMJHbQwC2vadg1SSEzsF0oSq/tyWm5xcdHScvaKfGsKNRPCOS7GB/YH9+tOV5TQTW4nBL2XWKHUob4CTkS3peQjuvKub9Ioh1+jUerx/oFXUzAyLroKHqIW7+42sr6UkabvCKjS6XL97Nd8Uo1luTRoDmewfjHKlEX1GKDksIgQ1biNCmM1XVYc0aQLz+KMiHEnP2yUQkDZ0qUJ3PAWgLwZx6ss3xHU6cL6SBNGgIcHbmFQsrMOGQqb9HfREY/8Fv8PLu+fSx/vHyb955HkFBEaYJ1Kdlg2v+Drh18CejQTdlgepWKZyTLNImfuJg6DJ3uOzT+3CgmKoTs9Elr1Fw1o5zs1zmxrA6EIT9yFpIifE/ilP9O6jdW3Kfw8SvAjlfGdcNS3gmXs2sZsbxF7ldcofjbyMU5dUrcSuhGkvrjONMSm+Agy51KDrWozLBepMKOscXHO6bTNPilxhI2qYsg1I6Q0dwfHU0o4Av2U82q2fShi06ncx/vUTZvgtFdVEr13AGrM2lAhoA=

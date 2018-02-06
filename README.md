@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/crazy-max/docker-svn2git-mirror" target="_blank"><img height="100"src="https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/res/svn2git-mirror.png"></a></p>
+<p align="center"><a href="https://github.com/crazy-max/docker-svn2git-mirror" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/res/docker-svn2git-mirror.jpg"></a></p>
 
 <p align="center">
   <a href="https://microbadger.com/images/crazymax/svn2git-mirror"><img src="https://images.microbadger.com/badges/version/crazymax/svn2git-mirror.svg?style=flat-square" alt="Version"></a>
@@ -6,6 +6,7 @@
   <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/"><img src="https://img.shields.io/docker/stars/crazymax/svn2git-mirror.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/"><img src="https://img.shields.io/docker/pulls/crazymax/svn2git-mirror.svg?style=flat-square" alt="Docker Pulls"></a>
   <a href="https://quay.io/repository/crazymax/svn2git-mirror"><img src="https://quay.io/repository/crazymax/svn2git-mirror/status?style=flat-square" alt="Docker Repository on Quay"></a>
+  <a href="https://beerpay.io/crazy-max/docker-svn2git-mirror"><img src="https://img.shields.io/beerpay/crazy-max/docker-svn2git-mirror.svg?style=flat-square" alt="Beerpay"></a>
   <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHT63R3FN9WMN"><img src="https://img.shields.io/badge/donate-paypal-7057ff.svg?style=flat-square" alt="Donate Paypal"></a>
 </p>
 
@@ -120,17 +121,18 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf5hIKe5v0TNdciiVBQRImyE3NtOuOw/q0arJOWT8O
 
 To mirror with a [Github](https://github.com) repository, you have to use a [deploy key](https://developer.github.com/v3/guides/managing-deploy-keys/#deploy-keys) on the target Github repository :
 
-![](https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/res/github-svn2git-mirror.png)
+![](.res/github.png)
 
 > Do not forget to check **Allow write access**.
 
 ## How can i help ?
 
-We welcome all kinds of contributions :raised_hands:!<br />
+All kinds of contributions are welcomed :raised_hands:!<br />
 The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:<br />
-Any funds donated will be used to help further development on this project! :gift_heart:
+But we're not gonna lie to each other, I'd rather you buy me a beer or two :beers:!
 
-[![Donate Paypal](https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/res/paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHT63R3FN9WMN)
+[![Beerpay](https://beerpay.io/crazy-max/docker-svn2git-mirror/badge.svg?style=beer-square)](https://beerpay.io/crazy-max/docker-svn2git-mirror)
+or [![Paypal](.res/paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=LHT63R3FN9WMN)
 
 ## License
 

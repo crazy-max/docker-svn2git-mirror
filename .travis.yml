@@ -10,7 +10,7 @@ env:
     - DOCKER_USERNAME=crazymax
     - DOCKER_REPONAME=svn2git-mirror
     - QUAY_USERNAME=crazymax
-    - QUAY_REPONAME=matomo
+    - QUAY_REPONAME=svn2git-mirror
     - DOCKER_VERSION=17.12.0~ce-0~ubuntu
     - COMPOSE_VERSION=1.18.0
     - MICROBADGER_HOOK=https://hooks.microbadger.com/images/crazymax/svn2git-mirror/KkTg5nSGpEj8NmQBMmAVJ3QSzko=

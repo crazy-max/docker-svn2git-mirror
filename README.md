@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/crazy-max/docker-svn2git-mirror" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/res/docker-svn2git-mirror.jpg"></a></p>
+<p align="center"><a href="https://github.com/crazy-max/docker-svn2git-mirror" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/.res/docker-svn2git-mirror.jpg"></a></p>
 
 <p align="center">
   <a href="https://microbadger.com/images/crazymax/svn2git-mirror"><img src="https://images.microbadger.com/badges/version/crazymax/svn2git-mirror.svg?style=flat-square" alt="Version"></a>
@@ -11,17 +11,30 @@
 
 ## About
 
-🐳 Docker image to mirror SVN repositories to Git periodically based on Alpine and [svn2git](https://github.com/nirvdrum/svn2git).
-
-You can mirror multi SVN repositories through a configuration file (see below). When a repository is initialized, an SSH key is created. You will then only have to add the public key `id_rsa.pub` on the remote Git server to make the synchronization work.
-
-The volume `/data` is mounted to persist SSH keys and repositories.
-
+🐳 Docker image to mirror SVN repositories to Git periodically based on Alpine and [svn2git](https://github.com/nirvdrum/svn2git).<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
+
+## Infos
+
+You can mirror multi SVN repositories through a configuration file (see below). When a repository is initialized, an SSH key is created. You will then only have to add the public key `id_rsa.pub` on the remote Git server to make the synchronization work. The volume `/data` is mounted to persist SSH keys and repositories.
+
+## Docker
+
+### Environment variables
+
+| Key                         | Default           | Description                               
+|-----------------------------|-------------------|-------------------------------------------
+| `TZ`                        | `UTC`             | Timezone (e.g. `Europe/Paris`)
+| `PUID`                      | `1000`            | svn2git-mirror user id
+| `PGID`                      | `1000`            | svn2git-mirror group id
+
+### Volumes
+
+* `/data` : Contains SSH keys and repositories
 
 ## Configuration
 
-This docker image works through a simple [config.json](asset/config.json) file :
+This docker image works through a simple [config.json](.res/config.json) file :
 
 * **id** : The name of the repository for example without special chars and spaces. **MUST BE UNIQUE**.
 * **cron** : [Cron expression](https://crontab.guru/).
@@ -35,7 +48,7 @@ This docker image works through a simple [config.json](asset/config.json) file :
 * **git.port** : Git server SSH port.
 * **authors** : List of authors to convert from SVN to Git format. More info [here](https://github.com/nirvdrum/svn2git#authors).
 
-In the following example, trunk, branches and tags of SVN repository `https://svn.code.sf.net/p/ant-contrib/code/` will be synchronize with Git repository `github.com/crazy-max/ant-contrib` every **15 minutes** and some authors will be converted.  
+In the following example, trunk, branches and tags of SVN repository `https://svn.code.sf.net/p/ant-contrib/code/` will be synchronize with Git repository `github.com/crazy-max/ant-contrib` every **15 minutes** and some authors will be converted.
 
 ```json
 [
@@ -68,31 +81,39 @@ In the following example, trunk, branches and tags of SVN repository `https://sv
 ]
 ```
 
-## Usage
+## Use this image
 
-Docker compose is the recommended way to run this image. You can use the following [docker compose template](docker-compose.yml), then run the container :
+> :warning: You have to create the configuration file `config.json` before running the container. See below.
+
+### Docker Compose
+
+Docker compose is the recommended way to run this image. You can use the following [docker compose template](examples/compose/docker-compose.yml), then run the container :
 
 ```bash
 $ docker-compose up -d
+$ docker-compose logs -f
 ```
 
-Or use the following command :
+### Command line
+
+You can also use the following minimal command :
 
 ```bash
 $ docker run -d --name svn2git-mirror \
   -e TZ="Europe/Paris" \
   -v "$(pwd)/data:/data" \
+  -v "$(pwd)/config.json:/etc/svn2git-mirror/config.json" \
   crazymax/svn2git-mirror:latest
 ```
 
-## Extra
+## Notes
 
 ### Retrieve SVN authors
 
 If you need a jump start on figuring out what users made changes in your svn repositories, you can use the following command based on the example below :
 
 ```
-$ docker exec -i -t svn2git-mirror svn_authors id
+$ docker exec -it svn2git-mirror svn_authors <id>
 bodewig
 carnold
 darius42
@@ -103,18 +124,18 @@ peterkittreilly
 slip_stream
 ```
 
-> Replace `id` to match an existing one in `config.json`.
+> Replace `<id>` to match an existing one in `config.json`.
 
 ### Retrieve the SSH public key
 
-To retrieve the SSH public key `id_rsa.pub` to make the synchronization work on your Gitserver, enter the following command :
+To retrieve the SSH public key `id_rsa.pub` to make the synchronization work on your Git server, enter the following command :
 
 ```
-$ docker exec -i -t svn2git-mirror git_pubkey id
+$ docker exec -it svn2git-mirror git_pubkey <id>
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf5hIKe5v0TNdciiVBQRImyE3NtOuOw/q0arJOWT8OrVw9w/kYWIT02QGRDHNxczY5np512/zGXfIbXG/oo4sRdN38Q69sGVkpI6sBAXYNfBPFHYDgShu/pOGAg+jVOwJnKvq94HiXNL6CbCsyEwxWScG1FcK5VPNv0njqxmMq9lqgEAZvrbuBzGT4MrOMdTBuOdAqzDDALzCDngKV4O0Rr7q/9SUSUOvgOgRoULH+Dgt4KJObtit3xhsPWMvqN0OvxziGdwJW1H2wmsmIvxaQbSZfgwR/qAnicXBvHovLrgfXJnf1WFxDjJsnP+ORQ4XbdYieWxz70JMzphLnKhkT root@a7d42ca39fc2
 ```
 
-> Replace `id` to match an existing one in `config.json`.
+> Replace `<id>` to match an existing one in `config.json`.
 
 ### Mirroring with Github
 

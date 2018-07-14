@@ -1,13 +1,21 @@
 # Changelog
 
-## 1.0-RC3 (2018/01/10)
+## 20180714
 
-* Update to Alpine 3.7
+* Allow to set custom UID/GID
+* Use busybox cron
+* Relocate config.json and authors files
+* Review entrypoint and common scripts
+* Do not restrict to GitHub (Issue #1)
 
-## 1.0-RC2 (2017/11/14)
+## 20180110
+
+* Upgrade to Alpine 3.7
+
+## 20171114
 
 * Push Docker image through TravisCI
 
-## 1.0-RC1 (2017/11/11)
+## 20171111
 
 * Initial version

@@ -1,0 +1,48 @@
+#!/bin/sh
+
+ID=$1
+
+# Check ID
+if [ -z "$ID" ]; then
+  echo "ID is required."
+  echo "Usage: ./`basename "$0"` id"
+  exit 1
+fi
+
+# Check config
+if [ ! -e "$SVN2GIT_MIRROR_CONFIG" ]; then
+  echo "ERROR: $SVN2GIT_MIRROR_CONFIG not found"
+  exit 1
+fi
+if ! jq -e . ${SVN2GIT_MIRROR_CONFIG} >/dev/null 2>&1; then
+  echo "ERROR: Failed to parse JSON file $SVN2GIT_MIRROR_CONFIG"
+  exit 1
+fi
+
+# Find and display public key
+found=false
+for i in $(jq -c -r '.[] | @base64' ${SVN2GIT_MIRROR_CONFIG}); do
+  _jq() {
+     echo ${i} | base64 -d  | jq -r ${1}
+  }
+
+  if [ ${ID} != $(_jq '.id') ]; then
+    continue
+  fi
+
+  pubKey="${DATA_PATH}/$(_jq '.id')/id_rsa.pub"
+  if [ ! -f "${pubKey}" ]; then
+    echo "ERROR: File not found '${pubKey}'."
+    exit 1
+  fi
+
+  cat "${pubKey}"
+  found=true
+
+  break
+done
+
+if [ "${found}" != true ]; then
+  echo "ERROR: id '${ID}' not found."
+  exit 1
+fi

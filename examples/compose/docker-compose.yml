@@ -7,5 +7,6 @@ services:
     environment:
       - TZ=Europe/Paris
     volumes:
-      - ./data:/data:rw
+      - ./data:/data
+      - ./config.json:/etc/svn2git-mirror/config.json
     restart: always

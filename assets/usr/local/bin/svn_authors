@@ -1,10 +1,5 @@
 #!/bin/sh
 
-DATA_PATH=${DATA_PATH:-"/data"}
-CRONTAB_PATH=${CRONTAB_PATH:-"/var/spool/cron/crontabs"}
-SCRIPTS_PATH=${SCRIPTS_PATH:-"/usr/local/bin"}
-
-CONFIG="$DATA_PATH/config.json"
 ID=$1
 
 # Check ID
@@ -15,18 +10,18 @@ if [ -z "$ID" ]; then
 fi
 
 # Check config
-if [ ! -e "$CONFIG" ]; then
-  echo "ERROR: $CONFIG not found"
+if [ ! -e "$SVN2GIT_MIRROR_CONFIG" ]; then
+  echo "ERROR: $SVN2GIT_MIRROR_CONFIG not found"
   exit 1
 fi
-if ! jq -e . ${CONFIG} >/dev/null 2>&1; then
-  echo "ERROR: Failed to parse JSON file $CONFIG"
+if ! jq -e . ${SVN2GIT_MIRROR_CONFIG} >/dev/null 2>&1; then
+  echo "ERROR: Failed to parse JSON file $SVN2GIT_MIRROR_CONFIG"
   exit 1
 fi
 
 # Find and display authors
 found=false
-for i in $(jq -c -r '.[] | @base64' ${CONFIG}); do
+for i in $(jq -c -r '.[] | @base64' ${SVN2GIT_MIRROR_CONFIG}); do
   _jq() {
      echo ${i} | base64 -d  | jq -r ${1}
   }

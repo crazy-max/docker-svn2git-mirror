@@ -1,39 +1,62 @@
 #!/bin/sh
 
-DATA_PATH=${DATA_PATH:-"/data"}
-CRONTAB_PATH=${CRONTAB_PATH:-"/var/spool/cron/crontabs"}
-SCRIPTS_PATH=${SCRIPTS_PATH:-"/usr/local/bin"}
+function fixperms() {
+  for folder in $@; do
+    if $(find ${folder} ! -user svn2git -o ! -group svn2git | egrep '.' -q); then
+      echo "Fixing permissions in $folder..."
+      chown -R svn2git. "${folder}"
+    else
+      echo "Permissions already fixed in ${folder}."
+    fi
+  done
+}
 
-USER="root"
-SSH_PATH="/$USER/.ssh"
-CONFIG="$DATA_PATH/config.json"
+SSH_PATH="/home/svn2git/.ssh"
+CRONTAB_PATH="/var/spool/cron/crontabs"
+
+TZ=${TZ:-"UTC"}
+PUID=${PUID:-1000}
+PGID=${PGID:-1000}
 
 # Timezone
-ln -snf /usr/share/zoneinfo/${TZ:-"UTC"} /etc/localtime
-echo ${TZ:-"UTC"} > /etc/timezone
+echo "Setting timezone to ${TZ}..."
+ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime
+echo ${TZ} > /etc/timezone
+
+# Change svn2git UID / GID
+echo "Checking if svn2git UID / GID has changed..."
+if [ $(id -u svn2git) != ${PUID} ]; then
+  usermod -u ${PUID} svn2git
+fi
+if [ $(id -g svn2git) != ${PGID} ]; then
+  groupmod -g ${PGID} svn2git
+fi
+chown svn2git. ${DATA_PATH}
 
 # Check config
-if [ ! -e "$CONFIG" ]; then
-  echo "ERROR: $CONFIG not found"
-  exec "$@"
-  exit 0
+if [ ! -e "$SVN2GIT_MIRROR_CONFIG" ]; then
+  echo "ERROR: $SVN2GIT_MIRROR_CONFIG not found"
+  exit 1
 fi
-if ! jq -e . ${CONFIG} >/dev/null 2>&1; then
-  echo "ERROR: Failed to parse JSON file $CONFIG"
-  exec "$@"
-  exit 0
+if ! jq -e . ${SVN2GIT_MIRROR_CONFIG} >/dev/null 2>&1; then
+  echo "ERROR: Failed to parse JSON file $SVN2GIT_MIRROR_CONFIG"
+  exit 1
 fi
 
-# Init
+# Init SSH config
 mkdir -p "${SSH_PATH}"
 chmod 700 "${SSH_PATH}"
 > "${SSH_PATH}/config"
 chmod 400 "${SSH_PATH}/config"
-rm -rf "${CRONTAB_PATH}"
-mkdir -m 0644 -p "${CRONTAB_PATH}"
+chown -R svn2git. ${SSH_PATH}
+
+# Init cron file
+rm -rf ${CRONTAB_PATH}
+mkdir -m 0644 -p ${CRONTAB_PATH}
+touch ${CRONTAB_PATH}/svn2git
 
 # Iterate config
-for i in $(jq -c -r '.[] | @base64' ${CONFIG}); do
+for i in $(jq -c -r '.[] | @base64' ${SVN2GIT_MIRROR_CONFIG}); do
   _jq() {
     local _tmp=$(echo ${i} | base64 -d | jq -r ${1})
     if [ ! -z "${_tmp}" -a "${_tmp}" != "null" -a "${_tmp}" != "[]" ]; then
@@ -43,10 +66,10 @@ for i in $(jq -c -r '.[] | @base64' ${CONFIG}); do
 
   # Vars
   id=$(_jq '.id')
-  pid_file="/var/run/${id}.pid"
-  basefolder="${DATA_PATH}/.${id}"
-  repofolder="${DATA_PATH}/.${id}/repo"
-  authorsfile="${basefolder}/authors.txt"
+  pid_file="/tmp/${id}.pid"
+  basefolder="${DATA_PATH}/${id}"
+  repofolder="${DATA_PATH}/${id}/repo"
+  authorsfile="${SVN2GIT_MIRROR_PATH}/${id}.conf"
   cron=$(_jq '.cron')
   crontab="${CRONTAB_PATH}/${id}"
   svn2git_repo=$(_jq '.svn2git.repo')
@@ -96,11 +119,10 @@ Host ${id} ${git_hostname}
   Port ${git_port}
   IdentityFile "${basefolder}/id_rsa"
   StrictHostKeyChecking no
-
 EOL
 
   # Create rebase script
-  cat > "${SCRIPTS_PATH}/${id}_rebase" <<EOL
+  cat > "/usr/local/bin/${id}_rebase" <<EOL
 #!/bin/sh
 
 cd ${repofolder}
@@ -140,7 +162,7 @@ printf "\n## Rebasing...\n"
 svn2git --rebase --authors "${authorsfile}"
 
 printf "\nTesting access to Git repository...\n"
-ssh -i "${basefolder}/id_rsa" -T git@github.com
+ssh -i "${basefolder}/id_rsa" -T git@${git_hostname}
 if [ "\$?" != "1" ]; then
   rm -f ${pid_file}
   exit 1
@@ -151,10 +173,10 @@ git push origin
 
 rm -f ${pid_file}
 EOL
-  chmod a+x "${SCRIPTS_PATH}/${id}_rebase"
+  chmod a+x "/usr/local/bin/${id}_rebase"
 
   # Create gc script
-cat > "${SCRIPTS_PATH}/${id}_gc" <<EOL
+cat > "/usr/local/bin/${id}_gc" <<EOL
 #!/bin/sh
 
 cd ${repofolder}
@@ -172,14 +194,17 @@ echo \${currentPid} > ${pid_file}
 printf "\n## Cleanup unnecessary files and optimize the local repository...\n"
 git gc
 EOL
-  chmod a+x "${SCRIPTS_PATH}/${id}_gc"
+  chmod a+x "/usr/local/bin/${id}_gc"
+
+  # Fix permissions
+  fixperms ${repofolder}
+  chown svn2git. ${basefolder} ${basefolder}/id_rsa ${basefolder}/id_rsa.pub ${authorsfile}
 
   # Create crontab
-  > ${crontab}
-  echo "${cron} ${SCRIPTS_PATH}/execute ${id} ${SCRIPTS_PATH}/${id}_rebase > /proc/1/fd/1 2>/proc/1/fd/2" >> ${crontab}
-  echo "0 2 * * * ${SCRIPTS_PATH}/execute ${id} ${SCRIPTS_PATH}/${id}_gc > /proc/1/fd/1 2>/proc/1/fd/2" >> ${crontab}
+  echo "${cron} execute ${id} /usr/local/bin/${id}_rebase" >> ${CRONTAB_PATH}/svn2git
+  echo "0 2 * * * execute ${id} /usr/local/bin/${id}_gc" >> ${CRONTAB_PATH}/svn2git
 
-  #sh "${SCRIPTS_PATH}/${id}_rebase"
+  #sh "/usr/local/bin/${id}_rebase"
   cd ${DATA_PATH}
 done
 

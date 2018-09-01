@@ -1,12 +1,12 @@
-version: '3.2'
+version: "3.2"
 
 services:
   svn2git-mirror:
     image: crazymax/svn2git-mirror
     container_name: svn2git-mirror
     environment:
-      - TZ=Europe/Paris
+      - "TZ=Europe/Paris"
     volumes:
-      - ./data:/data
-      - ./config.json:/etc/svn2git-mirror/config.json
+      - "./data:/data"
+      - "./config.json:/etc/svn2git-mirror/config.json"
     restart: always

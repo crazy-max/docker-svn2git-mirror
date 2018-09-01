@@ -22,11 +22,9 @@ You can mirror multi SVN repositories through a configuration file (see below). 
 
 ### Environment variables
 
-| Key                         | Default           | Description                               
-|-----------------------------|-------------------|-------------------------------------------
-| `TZ`                        | `UTC`             | Timezone (e.g. `Europe/Paris`)
-| `PUID`                      | `1000`            | svn2git-mirror user id
-| `PGID`                      | `1000`            | svn2git-mirror group id
+* `TZ` : Timezone assigned to the container (default `UTC`)
+* `PUID` : svn2git-mirror user id (default `1000`)
+* `PGID` : svn2git-mirror group id (default `1000`)
 
 ### Volumes
 
@@ -145,9 +143,9 @@ To mirror with a [Github](https://github.com) repository, you have to use a [dep
 
 > Do not forget to check **Allow write access**.
 
-## How can i help ?
+## How can I help ?
 
-All kinds of contributions are welcomed :raised_hands:!<br />
+All kinds of contributions are welcome :raised_hands:!<br />
 The most basic way to show your support is to star :star2: the project, or to raise issues :speech_balloon:<br />
 But we're not gonna lie to each other, I'd rather you buy me a beer or two :beers:!
 

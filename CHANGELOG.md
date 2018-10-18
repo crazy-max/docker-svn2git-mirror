@@ -1,5 +1,9 @@
 # Changelog
 
+## 20181018
+
+* Push all refs and tags
+
 ## 20180714
 
 * Allow to set custom UID/GID

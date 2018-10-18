@@ -169,7 +169,8 @@ if [ "\$?" != "1" ]; then
 fi
 
 printf "\n## Pushing to Git repository...\n"
-git push origin
+git push origin --all
+git push origin --tags
 
 rm -f ${pid_file}
 EOL

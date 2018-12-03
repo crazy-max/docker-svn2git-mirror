@@ -14,7 +14,7 @@ function fixperms() {
 SSH_PATH="/home/svn2git/.ssh"
 CRONTAB_PATH="/var/spool/cron/crontabs"
 
-TZ=${TZ:-"UTC"}
+TZ=${TZ:-UTC}
 PUID=${PUID:-1000}
 PGID=${PGID:-1000}
 

@@ -16,23 +16,33 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
 RUN apk --update --no-cache add \
-    git git-perl git-svn jq openssh openssh-client perl-git-svn ruby shadow subversion tzdata \
-  && rm -rf /var/cache/apk/* /tmp/* \
-  && gem install svn2git --no-ri --no-rdoc
+    git \
+    git-perl \
+    git-svn \
+    jq \
+    openssh \
+    openssh-client \
+    perl-git-svn \
+    ruby \
+    shadow \
+    subversion \
+    tzdata \
+  && gem install svn2git --no-ri --no-rdoc \
+  && rm -rf /var/cache/apk/* /tmp/*
 
 ENV SVN2GIT_MIRROR_PATH="/etc/svn2git-mirror" \
   SVN2GIT_MIRROR_CONFIG="/etc/svn2git-mirror/config.json" \
   DATA_PATH="/data"
 
-ADD entrypoint.sh /entrypoint.sh
-ADD assets/ /
+COPY entrypoint.sh /entrypoint.sh
+COPY assets /
 
 RUN mkdir -p ${SVN2GIT_MIRROR_PATH} ${DATA_PATH} \
   && addgroup -g 1000 svn2git \
   && adduser -u 1000 -G svn2git -h /home/svn2git -s /sbin/nologin -D svn2git \
   && chmod a+x /entrypoint.sh /usr/local/bin/*
 
-WORKDIR "${DATA_PATH}"
+WORKDIR ${DATA_PATH}
 VOLUME [ "${DATA_PATH}" ]
 
 ENTRYPOINT [ "/entrypoint.sh" ]

@@ -112,7 +112,7 @@ $ docker run -d --name svn2git-mirror \
 If you need a jump start on figuring out what users made changes in your svn repositories, you can use the following command based on the example below :
 
 ```
-$ docker exec -it svn2git-mirror svn_authors <id>
+$ docker-compose exec svn2git_mirror svn_authors <id>
 bodewig
 carnold
 darius42
@@ -130,7 +130,7 @@ slip_stream
 To retrieve the SSH public key `id_rsa.pub` to make the synchronization work on your Git server, enter the following command :
 
 ```
-$ docker exec -it svn2git-mirror git_pubkey <id>
+$ docker-compose exec svn2git_mirror git_pubkey <id>
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf5hIKe5v0TNdciiVBQRImyE3NtOuOw/q0arJOWT8OrVw9w/kYWIT02QGRDHNxczY5np512/zGXfIbXG/oo4sRdN38Q69sGVkpI6sBAXYNfBPFHYDgShu/pOGAg+jVOwJnKvq94HiXNL6CbCsyEwxWScG1FcK5VPNv0njqxmMq9lqgEAZvrbuBzGT4MrOMdTBuOdAqzDDALzCDngKV4O0Rr7q/9SUSUOvgOgRoULH+Dgt4KJObtit3xhsPWMvqN0OvxziGdwJW1H2wmsmIvxaQbSZfgwR/qAnicXBvHovLrgfXJnf1WFxDjJsnP+ORQ4XbdYieWxz70JMzphLnKhkT root@a7d42ca39fc2
 ```
 

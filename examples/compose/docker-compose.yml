@@ -1,9 +1,9 @@
 version: "3.2"
 
 services:
-  svn2git-mirror:
+  svn2git_mirror:
     image: crazymax/svn2git-mirror
-    container_name: svn2git-mirror
+    container_name: svn2git_mirror
     environment:
       - "TZ=Europe/Paris"
     volumes:

@@ -1,5 +1,9 @@
 # Changelog
 
+## 20190131
+
+* Alpine Linux 3.9
+
 ## 20181018
 
 * Push all refs and tags

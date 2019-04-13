@@ -1,5 +1,9 @@
 # Changelog
 
+## 20190413
+
+* Upstream issue with [nirvdrum/svn2git](https://github.com/nirvdrum/svn2git) (Issue #3)
+
 ## 20190131
 
 * Alpine Linux 3.9
@@ -18,7 +22,7 @@
 
 ## 20180110
 
-* Upgrade to Alpine 3.7
+* Alpine Linux 3.7
 
 ## 20171114
 

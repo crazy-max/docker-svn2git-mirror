@@ -1,7 +1,6 @@
 <p align="center"><a href="https://github.com/crazy-max/docker-svn2git-mirror" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/.res/docker-svn2git-mirror.jpg"></a></p>
 
 <p align="center">
-  <a href="https://microbadger.com/images/crazymax/svn2git-mirror"><img src="https://images.microbadger.com/badges/version/crazymax/svn2git-mirror.svg?style=flat-square" alt="Version"></a>
   <a href="https://travis-ci.com/crazy-max/docker-svn2git-mirror"><img src="https://img.shields.io/travis/com/crazy-max/docker-svn2git-mirror/master.svg?style=flat-square" alt="Build Status"></a>
   <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/"><img src="https://img.shields.io/docker/stars/crazymax/svn2git-mirror.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/"><img src="https://img.shields.io/docker/pulls/crazymax/svn2git-mirror.svg?style=flat-square" alt="Docker Pulls"></a>

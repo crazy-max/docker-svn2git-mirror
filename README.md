@@ -15,6 +15,8 @@
 🐳 Docker image to mirror SVN repositories to Git periodically based on Alpine and [svn2git](https://github.com/nirvdrum/svn2git).<br />
 If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 🐳 Docker images!
 
+💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
+
 ## Infos
 
 You can mirror multi SVN repositories through a configuration file (see below). When a repository is initialized, an SSH key is created. You will then only have to add the public key `id_rsa.pub` on the remote Git server to make the synchronization work. The volume `/data` is mounted to persist SSH keys and repositories.

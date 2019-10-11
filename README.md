@@ -1,10 +1,10 @@
 <p align="center"><a href="https://github.com/crazy-max/docker-svn2git-mirror" target="_blank"><img height="128"src="https://raw.githubusercontent.com/crazy-max/docker-svn2git-mirror/master/.res/docker-svn2git-mirror.jpg"></a></p>
 
 <p align="center">
-  <a href="https://travis-ci.com/crazy-max/docker-svn2git-mirror"><img src="https://img.shields.io/travis/com/crazy-max/docker-svn2git-mirror/master.svg?style=flat-square" alt="Build Status"></a>
+  <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/tags?page=1&ordering=last_updated"><img src="https://img.shields.io/github/v/tag/crazy-max/docker-svn2git-mirror?label=version&style=flat-square" alt="Latest Version"></a>
+  <a href="https://github.com/crazy-max/docker-svn2git-mirror/actions?workflow=build"><img src="https://github.com/crazy-max/docker-svn2git-mirror/workflows/build/badge.svg" alt="Build Status"></a>
   <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/"><img src="https://img.shields.io/docker/stars/crazymax/svn2git-mirror.svg?style=flat-square" alt="Docker Stars"></a>
   <a href="https://hub.docker.com/r/crazymax/svn2git-mirror/"><img src="https://img.shields.io/docker/pulls/crazymax/svn2git-mirror.svg?style=flat-square" alt="Docker Pulls"></a>
-  <a href="https://quay.io/repository/crazymax/svn2git-mirror"><img src="https://quay.io/repository/crazymax/svn2git-mirror/status?style=flat-square" alt="Docker Repository on Quay"></a>
   <a href="https://www.codacy.com/app/crazy-max/docker-svn2git-mirror"><img src="https://img.shields.io/codacy/grade/4c116dc4312b4a5aa7c57cd22e5369de.svg?style=flat-square" alt="Code Quality"></a>
   <br /><a href="https://www.patreon.com/crazymax"><img src="https://img.shields.io/badge/donate-patreon-f96854.svg?logo=patreon&style=flat-square" alt="Support me on Patreon"></a>
   <a href="https://www.paypal.me/crazyws"><img src="https://img.shields.io/badge/donate-paypal-00457c.svg?logo=paypal&style=flat-square" alt="Donate Paypal"></a>
@@ -19,9 +19,27 @@ If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other 
 
 ## Infos
 
-You can mirror multi SVN repositories through a configuration file (see below). When a repository is initialized, an SSH key is created. You will then only have to add the public key `id_rsa.pub` on the remote Git server to make the synchronization work. The volume `/data` is mounted to persist SSH keys and repositories.
+You can mirror multi SVN repositories through a configuration file (see below). When a repository is initialized, a SSH key is created. You will then only have to add the public key `id_rsa.pub` on the remote Git server to make the synchronization work. The volume `/data` is mounted to persist SSH keys and repositories.
 
 ## Docker
+
+### Multi-platform image
+
+Following platforms for this image are available:
+
+```
+$ docker run --rm mplatform/mquery crazymax/svn2git-mirror:latest
+Image: crazymax/svn2git-mirror:latest
+ * Manifest List: Yes
+ * Supported platforms:
+   - linux/amd64
+   - linux/arm/v6
+   - linux/arm/v7
+   - linux/arm64
+   - linux/386
+   - linux/ppc64le
+   - linux/s390x
+```
 
 ### Environment variables
 
@@ -82,7 +100,7 @@ In the following example, trunk, branches and tags of SVN repository `https://sv
 ]
 ```
 
-## Use this image
+## Usage
 
 > :warning: You have to create the configuration file `config.json` before running the container. See below.
 

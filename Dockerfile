@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.10
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -16,6 +16,9 @@ LABEL maintainer="CrazyMax" \
   org.label-schema.schema-version="1.0"
 
 RUN apk --update --no-cache add \
+    cyrus-sasl \
+    cyrus-sasl-dev \
+    cyrus-sasl-digestmd5 \
     git \
     git-perl \
     git-svn \
@@ -27,10 +30,9 @@ RUN apk --update --no-cache add \
     shadow \
     subversion \
     tzdata \
-    cyrus-sasl \
-    cyrus-sasl-dev \
-    cyrus-sasl-digestmd5 \
-  && gem install svn2git --no-ri --no-rdoc \
+  && gem install specific_install --no-ri --no-rdoc \
+  && gem specific_install https://github.com/mfherbst/svn2git.git \
+  #&& gem install svn2git --no-ri --no-rdoc \
   && rm -rf /var/cache/apk/* /tmp/*
 
 ENV SVN2GIT_MIRROR_PATH="/etc/svn2git-mirror" \

@@ -1,5 +1,13 @@
 # Changelog
 
+## 20191011
+
+* Multi-platform Docker image
+* Switch to GitHub Actions
+* :warning: Stop publishing Docker image on Quay
+* Alpine Linux 3.10
+* Add SASL support (PR #4)
+
 ## 20190413
 
 * Upstream issue with [nirvdrum/svn2git](https://github.com/nirvdrum/svn2git) (Issue #3)

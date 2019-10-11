@@ -27,6 +27,9 @@ RUN apk --update --no-cache add \
     shadow \
     subversion \
     tzdata \
+    cyrus-sasl \
+    cyrus-sasl-dev \
+    cyrus-sasl-digestmd5 \
   && gem install svn2git --no-ri --no-rdoc \
   && rm -rf /var/cache/apk/* /tmp/*
 

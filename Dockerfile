@@ -1,13 +1,19 @@
 # syntax=docker/dockerfile:experimental
 FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.10
 
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN printf "I am running on ${BUILDPLATFORM:-linux/amd64}, building for ${TARGETPLATFORM:-linux/amd64}\n$(uname -a)\n"
 
 LABEL maintainer="CrazyMax" \
+  org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="svn2git-mirror" \
   org.label-schema.description="Mirror SVN repositories to Git periodically" \
+  org.label-schema.version=$VERSION \
   org.label-schema.url="https://github.com/crazy-max/docker-svn2git-mirror" \
   org.label-schema.vcs-url="https://github.com/crazy-max/docker-svn2git-mirror" \
   org.label-schema.vendor="CrazyMax" \

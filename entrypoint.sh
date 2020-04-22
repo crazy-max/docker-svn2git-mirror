@@ -162,8 +162,9 @@ printf "\n## Rebasing...\n"
 svn2git --rebase --authors "${authorsfile}"
 
 printf "\nTesting access to Git repository...\n"
-ssh -i "${basefolder}/id_rsa" -T git@${git_hostname}
-if [ "\$?" != "1" ]; then
+nc -zv ${git_hostname}
+ret="$?"
+if [ $ret != "0" ]; then
   rm -f ${pid_file}
   exit 1
 fi
